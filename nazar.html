@@ -1,0 +1,211 @@
+<<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Popüler Halk İnanışları</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  h1 { color: #2c3e50; }
+  .inanc { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+  .inanc h2 { margin-top: 0; color: #34495e; }
+  .label { font-weight: bold; color: #2980b9; }
+  pre { white-space: pre-wrap; margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<h1>Popüler Halk İnanışları</h1>
+
+<div id="inanislar"></div>
+
+<script>
+const inanislari = [
+  {
+    ad: "Nazar / النظرة",
+    tanim: `Sözlükte “bakmak, görmek; düşünmek” anlamındaki nazar kelimesi Türkçe’de “beğenilen bir şeye kıskançlıkla bakmak ve zarar verecek şekilde onu etkilemek” mânasında nazar etmek (göz değmek), Arapça’da ise nazra (isâbetü’l-ayn) şeklinde kullanılır. Nazar kavramı, daha çok kıskançlık duygusunun eşlik ettiği zarar verici etkiye sahip göz ve bakışla ilişkilendirilse de herhangi bir canlı yahut objeye yönelik hayranlık ve övgü sözleri de etkisi açısından nazar kapsamında görülmüştür. Nazar inancı İslam ülkeleri ile Türkiye’de oldukça yaygındır. İnsanların bir kısmı, nazar değmesinden dolayı ölümün bile gerçekleşebileceğine inanır. Türkiye’de halk arasında sıkça dile getirilen “deveyi kazana, insanı mezara” deyimi bunu ifade eder. Nazara karşı kullanılan terimler farklı kültürlerde de görülür: Yunanlıların “matımsa”, Arapların “elayn”, İranlıların “bed nezer”, Hintlilerin “sihir”, Türkiye’de ise “nazar”, “göz”, “göz değmesi”, “kem göz” vb. Nazara karşı halk arasında çeşitli uygulamalar geliştirilmiştir.`,
+    tarihce: `Nazar inancı İslamiyet öncesinde, Musevilik ve Hıristiyanlıkta da görülür. Musevilikte en eski hurafelerden biridir. İbranice’de "ayin ha-ra" (şerrin gözü) olarak geçer. Korumak için metalden yapılmış dualı el muskaları kullanılır. Eski Sumer, Babil, Mısır, Grek, Roma, Sami, Pers, Hint ve Avrupa kavimlerinde milattan önce 4000 yılına kadar uzanan tarihi vardır. Alan Dundes’e göre Mezopotamya kökenlidir ve su-hayat, kuraklık-ölüm ilişkisiyle bağlantılıdır.`,
+    gunluk: `Elemtera fiş, kem gözlere şiş; nazar muskası, maşallah, nazarlık, kurşun dökme, el şekli, nal, yumurta kabuğu, bitki ve yiyeceklerden yapılan nazarlık uygulamaları. Ayrıca tükürme, misafirin ayakkabı ölçüsünü ip ile alıp yakma, el parmakları çıtlatma, kül veya is sürme gibi yöntemler de uygulanır.`,
+    toplumsal: `Nazar inancı Türkiye’de ve İslam ülkelerinde yaygındır. Kırsal çevrelerde ve yoksul insanlar arasında daha yoğun gözlemlenir. İnsanlar, değerli varlıklarını, çocuklarını ve hayvanlarını korumak için önlemler alır. Eski toplumlarda hastalık, talihsizlik ve ani ölümler bilinçli veya bilinçsiz nazarla ilişkilendirilmiştir.`,
+    dini: `Hz. Muhammed: “Nazar’dan Allah’a sığınınız. Çünkü göz (değmesi) gerçektir.” Kur’an’daki Felâk ve Nâs sureleri. İbn-i Mes’ud hadisi, nazarlık ve muska gibi uygulamaları bidat olarak nitelendirir.`,
+    uygulamalarOnce: `Nazar muskası, maşallah, nazarlık, nazar boncuğu, el şekli, nal, kaplumbağa kabuğu, hayvan kafası, koç boynuzu, çan, delikli taş, civa, şap, yumurta kabuğu, çeşitli bitkiler ve yiyeceklerden yapılan nazarlıklar.`,
+    uygulamalarSonra: `Kurşun dökme, köz söndürme, tütsüleme, tuz dolandırma, kül suyu içirmek, elbiseden parça alıp yakmak, toprak yalatma, tuz yakma, ırmakta hayvanı 3 kez yıkama.`,
+    belirtiler: `Ağız kokusu, ter kokusu, gözaltı siyah, halsizlik, iştahsızlık, bayılma, ağlama, sürekli hasta olma, aniden baş ağrısı, uyku bastırması, unutkanlık.`
+  },
+  {
+    ad: "Kurşun Döktürme",
+    tanim: `Nazar veya kötü enerjiyi gidermek için eritilmiş kurşunun bedene dökülmesidir.`,
+    tarihce: `Eski Türk ve Osmanlı dönemlerinden beri uygulanmaktadır.`,
+    gunluk: `Hasta çocuklar veya evcil hayvanlar için evde kurşun dökme ritüeli uygulanır.`,
+    toplumsal: `Köylerde yaygın bir uygulamadır, özellikle çocuklar ve evcil hayvanlar için.`,
+    dini: `Dinen yasaktır; Allah’a sığınmak tavsiye edilir.`,
+    uygulamalarOnce: `Ritüelden önce dua okunur ve nazarın etkisi belirlenir.`,
+    uygulamalarSonra: `Kurşun dökülür, kurşun şekli yorumlanır, olumsuzluklardan arınma sağlanır.`,
+    belirtiler: `Çocuğun veya hayvanın durumunda iyileşme veya değişim gözlemlenir.`
+  },
+  {
+    ad: "Muska",
+    tanim: `Kötü gözden veya nazardan korunmak için hazırlanan, içine dua veya koruyucu yazılar konulan nesnedir.`,
+    tarihce: `Eski Mısır ve Mezopotamya'dan günümüze kadar gelen muska geleneği, özellikle İslam toplumlarında yaygındır.`,
+    gunluk: `Boyunda, omuzda veya yastığın altında taşınır.`,
+    toplumsal: `Halk arasında yaygındır, özellikle çocuklar ve yeni evlerde uygulanır.`,
+    dini: `Dinen bidat kabul edilir; gerçek koruma Allah’a sığınmakla olur.`,
+    uygulamalarOnce: `Muska hazırlanır, içine ayetler veya dualar yazılır.`,
+    uygulamalarSonra: `Muska taşınır veya evin görünen yerine asılır.`,
+    belirtiler: `Kötü gözden korunma sağlanır, nazar etkisi azaltılır.`
+  }
+];
+
+const container = document.getElementById("inanislar");
+
+inanislari.forEach(inanc => {
+  const div = document.createElement("div");
+  div.classList.add("inanc");
+  div.innerHTML = `
+    <h2>${inanc.ad}</h2>
+    <p><span class="label">Kısa Tanım:</span></p>
+    <pre>${inanc.tanim}</pre>
+    <p><span class="label">Tarihçe:</span></p>
+    <pre>${inanc.tarihce}</pre>
+    <p><span class="label">Günlük Hayattaki Uygulama:</span></p>
+    <pre>${inanc.gunluk}</pre>
+    <p><span class="label">Toplumsal / Sosyolojik Yorum:</span></p>
+    <pre>${inanc.toplumsal}</pre>
+    <p><span class="label">Dini Referans:</span></p>
+    <pre>${inanc.dini}</pre>
+    <p><span class="label">Nazar Değmeden Önce Uygulamalar:</span></p>
+    <pre>${inanc.uygulamalarOnce}</pre>
+    <p><span class="label">Nazar Değdikten Sonra Uygulamalar:</span></p>
+    <pre>${inanc.uygulamalarSonra}</pre>
+    <p><span class="label">Belirtiler:</span></p>
+    <pre>${inanc.belirtiler}</pre>
+  `;
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+<div id="paylasimButonlari">
+  <button onclick="paylas('facebook')">Facebook'ta Paylaş</button>
+  <button onclick="paylas('whatsapp')">WhatsApp'ta Paylaş</button>
+  <button onclick="paylas('telegram')">Telegram'da Paylaş</button>
+</div>
+
+<script>
+function paylas(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Bu bilgiyi inceleyin: Nazar inancı hakkında detaylı bilgiler.");
+
+  let shareUrl = "";
+
+  if(platform === "facebook") {
+    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  } else if(platform === "whatsapp") {
+    shareUrl = `https://wa.me/?text=${text}%20${url}`;
+  } else if(platform === "telegram") {
+    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+  }
+
+  // Yeni pencerede paylaş
+  window.open(shareUrl, '_blank', 'width=600,height=400');
+}
+</script>
+<!-- Paylaşım ve ziyaret sayaçları alanını ekle -->
+<div class="share-buttons">
+  <button onclick="paylas('facebook')">Facebook ile Paylaş</button>
+  <button onclick="paylas('whatsapp')">WhatsApp ile Paylaş</button>
+  <button onclick="paylas('telegram')">Telegram ile Paylaş</button>
+</div>
+
+<p><em>Siteye toplam ziyaret ve paylaşım sayısı sadece sizin tarayıcınızda saklanır.</em></p>
+<div id="ziyaretler"></div>
+
+<script>
+// Mevcut kodun en altına ekle
+// Ziyaret sayısını artır ve göster
+function ziyaretEkle() {
+  let count = parseInt(localStorage.getItem("siteZiyaret") || "0");
+  count++;
+  localStorage.setItem("siteZiyaret", count);
+  document.getElementById("ziyaretler").innerHTML = `<p><strong>Toplam ziyaret:</strong> ${count}</p>`;
+}
+
+// Paylaşım sayısını artır ve göster
+function paylas(platform) {
+  let count = parseInt(localStorage.getItem(platform) || "0");
+  count++;
+  localStorage.setItem(platform, count);
+  alert(`${platform} ile paylaşım sayısı: ${count}`);
+
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Nazar inancı hakkında bilgi");
+
+  let shareUrl = "";
+  if(platform === "facebook") shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  if(platform === "whatsapp") shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+  if(platform === "telegram") shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+
+  window.open(shareUrl, '_blank', 'width=600,height=400');
+}
+
+// Sayfa yüklendiğinde ziyaret sayısını artır
+ziyaretEkle();
+</script>
+<div class="share">
+  <button onclick="paylas('facebook')">Facebook</button>
+  <button onclick="paylas('whatsapp')">WhatsApp</button>
+  <button onclick="paylas('telegram')">Telegram</button>
+</div>
+
+<script>
+function paylas(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Popüler halk inanışları üzerine hazırlanmış çalışma:");
+
+  let link = "";
+  if (platform === "facebook") {
+    link = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  }
+  if (platform === "whatsapp") {
+    link = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+  }
+  if (platform === "telegram") {
+    link = `https://t.me/share/url?url=${url}&text=${text}`;
+  }
+  window.open(link, "_blank");
+}
+</script>
+
+<div class="share">
+  <button onclick="paylas('facebook')">Facebook</button>
+  <button onclick="paylas('whatsapp')">WhatsApp</button>
+  <button onclick="paylas('telegram')">Telegram</button>
+</div>
+
+<script>
+function paylas(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent("Popüler halk inanışları üzerine hazırlanmış çalışma:");
+
+  let link = "";
+  if (platform === "facebook") {
+    link = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  }
+  if (platform === "whatsapp") {
+    link = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+  }
+  if (platform === "telegram") {
+    link = `https://t.me/share/url?url=${url}&text=${text}`;
+  }
+  window.open(link, "_blank");
+}
+</script>
+https://kullaniciadi.github.io/proje/
